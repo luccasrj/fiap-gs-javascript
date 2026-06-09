@@ -17,56 +17,48 @@ function calcularEcoCredit(pesoKg, tipoResiduo) {
 const selectEstado = document.getElementById('select-estado');
 const selectMunicipio = document.getElementById('select-municipio');
 
-const municipiosPorEstado = {
-  AC: ['Rio Branco', 'Cruzeiro do Sul', 'Sena Madureira'],
-  AL: ['Maceió', 'Arapiraca', 'Palmeira dos Índios'],
-  AP: ['Macapá', 'Santana', 'Laranjal do Jari'],
-  AM: ['Manaus', 'Parintins', 'Itacoatiara'],
-  BA: ['Salvador', 'Feira de Santana', 'Vitória da Conquista', 'Camaçari'],
-  CE: ['Fortaleza', 'Caucaia', 'Juazeiro do Norte', 'Maracanaú'],
-  DF: ['Brasília'],
-  ES: ['Vitória', 'Serra', 'Vila Velha', 'Cariacica'],
-  GO: ['Goiânia', 'Aparecida de Goiânia', 'Anápolis'],
-  MA: ['São Luís', 'Imperatriz', 'Timon'],
-  MT: ['Cuiabá', 'Várzea Grande', 'Rondonópolis'],
-  MS: ['Campo Grande', 'Dourados', 'Três Lagoas'],
-  MG: ['Belo Horizonte', 'Uberlândia', 'Contagem', 'Juiz de Fora'],
-  PA: ['Belém', 'Ananindeua', 'Santarém', 'Marabá'],
-  PB: ['João Pessoa', 'Campina Grande', 'Santa Rita'],
-  PR: ['Curitiba', 'Londrina', 'Maringá', 'Ponta Grossa'],
-  PE: ['Recife', 'Caruaru', 'Olinda', 'Jaboatão dos Guararapes'],
-  PI: ['Teresina', 'Parnaíba', 'Picos'],
-  RJ: ['Rio de Janeiro', 'São Gonçalo', 'Duque de Caxias', 'Nova Iguaçu'],
-  RN: ['Natal', 'Mossoró', 'Parnamirim'],
-  RS: ['Porto Alegre', 'Caxias do Sul', 'Pelotas', 'Canoas'],
-  RO: ['Porto Velho', 'Ji-Paraná', 'Ariquemes'],
-  RR: ['Boa Vista', 'Rorainópolis'],
-  SC: ['Florianópolis', 'Joinville', 'Blumenau', 'São José'],
-  SP: ['São Paulo', 'Guarulhos', 'Campinas', 'Santos', 'São Bernardo do Campo'],
-  SE: ['Aracaju', 'Lagarto', 'Nossa Senhora do Socorro'],
-  TO: ['Palmas', 'Araguaína', 'Gurupi']
-};
-
-if (selectEstado) {
-  selectEstado.addEventListener('change', function () {
-    const uf = selectEstado.value;
-    selectMunicipio.innerHTML = '<option value="">Selecione o município</option>';
-
-    if (!uf) {
-      selectMunicipio.disabled = true;
-      return;
-    }
-
-    const municipios = municipiosPorEstado[uf] || [];
-    municipios.forEach(function (nome) {
+fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
+  .then(function (res) { return res.json(); })
+  .then(function (estados) {
+    selectEstado.innerHTML = '<option value="">Selecione o estado</option>';
+    estados.forEach(function (uf) {
       const opt = document.createElement('option');
-      opt.value = nome;
-      opt.textContent = nome;
-      selectMunicipio.appendChild(opt);
+      opt.value = uf.sigla;
+      opt.textContent = uf.nome;
+      selectEstado.appendChild(opt);
     });
-    selectMunicipio.disabled = false;
+  })
+  .catch(function () {
+    selectEstado.innerHTML = '<option value="">Erro ao carregar estados</option>';
   });
-}
+
+selectEstado.addEventListener('change', function () {
+  const sigla = selectEstado.value;
+  selectMunicipio.innerHTML = '<option value="">Carregando municípios...</option>';
+  selectMunicipio.disabled = true;
+
+  if (!sigla) {
+    selectMunicipio.innerHTML = '<option value="">Selecione o estado primeiro</option>';
+    return;
+  }
+
+  fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + sigla + '/municipios?orderBy=nome')
+    .then(function (res) { return res.json(); })
+    .then(function (municipios) {
+      selectMunicipio.innerHTML = '<option value="">Selecione o município</option>';
+      municipios.forEach(function (m) {
+        const opt = document.createElement('option');
+        opt.value = m.nome;
+        opt.textContent = m.nome;
+        selectMunicipio.appendChild(opt);
+      });
+      selectMunicipio.disabled = false;
+    })
+    .catch(function () {
+      selectMunicipio.innerHTML = '<option value="">Erro ao carregar municípios</option>';
+      selectMunicipio.disabled = false;
+    });
+});
 
 const inputPeso = document.getElementById('peso-kg');
 const selectTipo = document.getElementById('tipo-residuo');
@@ -136,6 +128,8 @@ if (form) {
 
     if (formSuccess) formSuccess.classList.remove('hidden');
     form.reset();
+    selectMunicipio.innerHTML = '<option value="">Selecione o estado primeiro</option>';
+    selectMunicipio.disabled = true;
     if (previewEl) previewEl.innerHTML = '— <span class="kpi-unit">tCO2e</span>';
     setTimeout(function () {
       if (formSuccess) formSuccess.classList.add('hidden');
