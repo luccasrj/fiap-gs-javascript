@@ -63,10 +63,11 @@ FIAP · Global Solution 2026 · Engenharia de Software · Semi Presencial RJ
 
 ```
 /
-├── index.html
-├── comprador.html
-├── orbital.html
-├── cadastro-lote.html
+├── html/
+│   ├── index.html
+│   ├── comprador.html
+│   ├── orbital.html
+│   └── cadastro-lote.html
 ├── integrantes.txt
 ├── README.md
 ├── css/
