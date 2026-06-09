@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EcoOrbit — Painel Orbital Público. Monitoramento de regiões via satélite, score de risco e status de lixões. Acesso livre, sem login." />
+  <title>EcoOrbit — Painel Orbital Público</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="emergency-banner" id="emergency-banner" role="alert" aria-live="assertive">
+    <span id="emergency-message">ALERTA ORBITAL: Novo foco de metano detectado na região de Belém-PA. Nível: CRITICO.</span>
+  </div>
+
+  <div class="app-layout">
+
+    <!-- ── NAVEGAÇÃO LATERAL ───────────────────────────── -->
+    <nav class="nav-sidebar" aria-label="Navegação principal">
+      <div class="nav-logo">
+        <span class="nav-logo-text">EcoOrbit</span>
+      </div>
+
+      <ul class="nav-menu" role="list">
+        <li>
+          <p class="nav-section-label">Principal</p>
+        </li>
+        <li>
+          <a href="index.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="cadastro-lote.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span>Novo Lote</span>
+          </a>
+        </li>
+        <li>
+          <p class="nav-section-label">Mercado</p>
+        </li>
+        <li>
+          <a href="comprador.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </span>
+            <span>Compradores</span>
+          </a>
+        </li>
+        <li>
+          <p class="nav-section-label">Monitoramento</p>
+        </li>
+        <li>
+          <a href="orbital.html" class="nav-item active" aria-current="page">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+            </span>
+            <span>Painel Orbital</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-footer">
+        <div class="nav-item">
+          <span class="nav-item-icon" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </span>
+          <span>Acesso Público</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ── CONTEÚDO PRINCIPAL ──────────────────────────── -->
+    <div class="main-content">
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <div>
+            <h1 class="page-title">Painel Orbital Público</h1>
+            <p class="page-subtitle">Monitoramento via satélite — dados ESA TROPOMI / Landsat · Acesso livre</p>
+          </div>
+        </div>
+        <div class="page-header-right">
+          <span class="orbital-live-badge" aria-label="Transmissão ao vivo">
+            <span class="orbital-live-dot" aria-hidden="true"></span>
+            Ao Vivo
+          </span>
+          <button class="btn btn--ghost btn--sm" id="btn-emergency" aria-label="Simular alerta orbital">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Alerta Orbital
+          </button>
+        </div>
+      </header>
+
+      <main class="page-body" id="main-content">
+
+        <section aria-labelledby="tropomi-heading" class="mb-8">
+          <h2 id="tropomi-heading" class="section-title">Dado Orbital Atual — TROPOMI / Sentinel-5P</h2>
+
+          <div class="orbital-panel" aria-live="polite" aria-atomic="true">
+            <div class="flex items-center justify-between mb-4">
+              <span class="orbital-live-badge">
+                <span class="orbital-live-dot" aria-hidden="true"></span>
+                Recebendo dados
+              </span>
+              <span class="text-xs text-muted font-mono">Atualização automática a cada 5s</span>
+            </div>
+
+            <div class="grid-2">
+              <div>
+                <p class="kpi-label">Região Monitorada</p>
+                <p class="orbital-region" id="regiao-atual">Belém-PA</p>
+              </div>
+              <div>
+                <p class="kpi-label">Concentração de Metano</p>
+                <p class="orbital-methane" id="metano-valor">1.847 ppb</p>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="flex items-center justify-between mb-2">
+              <p class="text-sm text-muted">Score de risco de lixão</p>
+              <p class="font-mono font-bold" id="score-valor">87 / 100</p>
+            </div>
+            <div class="progress-bar-wrapper" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" aria-label="Score de risco">
+              <div class="progress-bar progress-bar--alert progress-87" id="score-bar"></div>
+            </div>
+
+            <div class="mt-4">
+              <span class="badge badge--alert" id="status-badge">ALERTA</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Aviso público -->
+        <section aria-label="Informação pública" class="mb-8">
+          <div class="alert alert--info">
+            <svg class="icon alert-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+              <strong class="alert-title">Painel de acesso público — sem necessidade de login</strong>
+              Os dados exibidos são atualizados em tempo real pelo monitoramento orbital dos satélites ESA Sentinel-5P (TROPOMI) e NASA Landsat. Fontes adicionais: INPE/BDQueimadas.
+            </div>
+          </div>
+        </section>
+
+        <!-- Tabela de regiões monitoradas -->
+        <section aria-labelledby="regioes-heading">
+          <div class="card">
+            <div class="card-header">
+              <h2 id="regioes-heading" class="card-title">Regiões Monitoradas</h2>
+              <span class="text-sm text-muted">4 regiões ativas</span>
+            </div>
+
+            <div class="table-toolbar">
+              <input
+                type="search"
+                class="search-input"
+                id="busca-regioes"
+                placeholder="Buscar por região..."
+                aria-label="Buscar regiões"
+                aria-controls="tabela-regioes"
+              />
+            </div>
+
+            <div class="table-wrapper" role="region" aria-label="Tabela de regiões monitoradas por satélite">
+              <table class="data-table" id="tabela-regioes">
+                <thead>
+                  <tr>
+                    <th scope="col">Região</th>
+                    <th scope="col">Metano (ppb)</th>
+                    <th scope="col">NDVI</th>
+                    <th scope="col">Focos de Calor</th>
+                    <th scope="col">Área Descarte (km²)</th>
+                    <th scope="col">Score de Risco</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Belém-PA</td>
+                    <td class="font-mono">1.847</td>
+                    <td class="font-mono text-alert">0.18</td>
+                    <td class="font-mono">22</td>
+                    <td class="font-mono">5.2</td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <div class="progress-bar-wrapper w-full min-w-progress" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" aria-label="Score 87">
+                          <div class="progress-bar progress-bar--alert progress-87"></div>
+                        </div>
+                        <span class="font-mono text-xs">87</span>
+                      </div>
+                    </td>
+                    <td><span class="badge badge--alert">Lixão Confirmado</span></td>
+                  </tr>
+                  <tr>
+                    <td>Manaus-AM</td>
+                    <td class="font-mono">1.812</td>
+                    <td class="font-mono text-muted">0.31</td>
+                    <td class="font-mono">9</td>
+                    <td class="font-mono">1.8</td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <div class="progress-bar-wrapper w-full min-w-progress" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="Score 62">
+                          <div class="progress-bar progress-bar--warn progress-62"></div>
+                        </div>
+                        <span class="font-mono text-xs">62</span>
+                      </div>
+                    </td>
+                    <td><span class="badge badge--monitoring">Monitorando</span></td>
+                  </tr>
+                  <tr>
+                    <td>Recife-PE</td>
+                    <td class="font-mono">1.798</td>
+                    <td class="font-mono text-green">0.55</td>
+                    <td class="font-mono">2</td>
+                    <td class="font-mono">0.4</td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <div class="progress-bar-wrapper w-full min-w-progress" role="progressbar" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100" aria-label="Score 31">
+                          <div class="progress-bar progress-bar--cyan progress-31"></div>
+                        </div>
+                        <span class="font-mono text-xs">31</span>
+                      </div>
+                    </td>
+                    <td><span class="badge badge--normal">Normal</span></td>
+                  </tr>
+                  <tr>
+                    <td>Goiânia-GO</td>
+                    <td class="font-mono">1.831</td>
+                    <td class="font-mono text-alert">0.22</td>
+                    <td class="font-mono">15</td>
+                    <td class="font-mono">3.7</td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <div class="progress-bar-wrapper w-full min-w-progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Score 75">
+                          <div class="progress-bar progress-bar--warn progress-75"></div>
+                        </div>
+                        <span class="font-mono text-xs">75</span>
+                      </div>
+                    </td>
+                    <td><span class="badge badge--alert">Risco Médio</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Legenda de score -->
+        <section aria-labelledby="legenda-heading" class="mt-6">
+          <div class="card">
+            <h2 id="legenda-heading" class="card-title mb-4">Legenda — Score de Risco de Lixão</h2>
+            <div class="flex gap-6 flex-wrap">
+              <div class="flex items-center gap-2">
+                <div class="legend-dot legend-dot--alert" aria-hidden="true"></div>
+                <span class="text-sm">Score ≥ 70 — Lixão Confirmado</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="legend-dot legend-dot--warning" aria-hidden="true"></div>
+                <span class="text-sm">Score 40–69 — Risco Médio / Monitorando</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="legend-dot legend-dot--green" aria-hidden="true"></div>
+                <span class="text-sm">Score &lt; 40 — Normal</span>
+              </div>
+            </div>
+            <p class="text-xs text-muted mt-4">
+              Score calculado com base em: índice NDVI (cobertura vegetal), focos de calor (INPE/BDQueimadas) e área de descarte detectada (Landsat/NASA). Baseado nas diretrizes do IPCC 2006.
+            </p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+  </div>
+
+</body>
+</html>

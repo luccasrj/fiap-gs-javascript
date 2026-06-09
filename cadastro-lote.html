@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EcoOrbit — Cadastro de Lote. Registre seus resíduos para comercialização no marketplace orbital." />
+  <title>EcoOrbit — Cadastro de Lote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="emergency-banner" id="emergency-banner" role="alert" aria-live="assertive">
+    <span id="emergency-message">ALERTA ORBITAL: Novo foco de metano detectado na região de Belém-PA. Nível: CRITICO.</span>
+  </div>
+
+  <div class="app-layout">
+
+    <!-- ── NAVEGAÇÃO LATERAL ───────────────────────────── -->
+    <nav class="nav-sidebar" aria-label="Navegação principal">
+      <div class="nav-logo">
+        <span class="nav-logo-text">EcoOrbit</span>
+      </div>
+
+      <ul class="nav-menu" role="list">
+        <li>
+          <p class="nav-section-label">Principal</p>
+        </li>
+        <li>
+          <a href="index.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="cadastro-lote.html" class="nav-item active" aria-current="page">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span>Novo Lote</span>
+          </a>
+        </li>
+        <li>
+          <p class="nav-section-label">Mercado</p>
+        </li>
+        <li>
+          <a href="comprador.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </span>
+            <span>Compradores</span>
+          </a>
+        </li>
+        <li>
+          <p class="nav-section-label">Monitoramento</p>
+        </li>
+        <li>
+          <a href="orbital.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+            </span>
+            <span>Painel Orbital</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-footer">
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </span>
+          <span>Frigorifico Norte SA</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ── CONTEÚDO PRINCIPAL ──────────────────────────── -->
+    <div class="main-content">
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <a href="index.html" class="btn btn--ghost btn--sm" aria-label="Voltar ao Dashboard">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            Voltar
+          </a>
+          <div>
+            <h1 class="page-title">Cadastro de Lote</h1>
+            <p class="page-subtitle">RF02 — Registre os dados do resíduo para comercialização</p>
+          </div>
+        </div>
+        <div class="page-header-right">
+          <span class="badge badge--verified">Gerador Verificado</span>
+        </div>
+      </header>
+
+      <main class="page-body" id="main-content">
+
+        <!-- Informativo -->
+        <section aria-label="Instrução de preenchimento" class="mb-6">
+          <div class="alert alert--info">
+            <svg class="icon alert-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+              <strong class="alert-title">Como funciona o Cadastro de Lote</strong>
+              Preencha os dados do resíduo. O sistema calculará automaticamente o EcoCredit estimado em tCO2e. Após o cadastro, o lote fica disponível para compradores certificados fazerem propostas.
+            </div>
+          </div>
+        </section>
+
+        <!-- Formulário principal — RF02 -->
+        <section aria-labelledby="form-heading">
+          <h2 id="form-heading" class="section-title">Dados do Resíduo</h2>
+
+          <form class="form-section" id="form-cadastro-lote" novalidate aria-describedby="form-heading">
+
+            <div class="form-grid">
+
+              <!-- Tipo de resíduo -->
+              <div class="form-group" id="group-tipo">
+                <label for="tipo-residuo" class="form-label">
+                  Tipo de Resíduo
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+                <select class="form-select" id="tipo-residuo" name="tipo_residuo" required aria-required="true" aria-describedby="tipo-error">
+                  <option value="">Selecione o tipo</option>
+                  <option value="organico">Orgânico</option>
+                  <option value="plastico">Plástico</option>
+                  <option value="metal">Metal</option>
+                  <option value="eletronico">Eletrônico</option>
+                  <option value="oleo">Óleo</option>
+                </select>
+                <span class="form-error" id="tipo-error" role="alert">Selecione o tipo de resíduo.</span>
+              </div>
+
+              <!-- Peso estimado -->
+              <div class="form-group" id="group-peso">
+                <label for="peso-kg" class="form-label">
+                  Peso Estimado (kg)
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="number"
+                  class="form-input"
+                  id="peso-kg"
+                  name="peso_kg"
+                  placeholder="Ex: 2000"
+                  min="1"
+                  required
+                  aria-required="true"
+                  aria-describedby="peso-hint peso-error"
+                />
+                <span class="form-hint" id="peso-hint">Peso mínimo: 1 kg. Peso máximo por lote: 50.000 kg.</span>
+                <span class="form-error" id="peso-error" role="alert">Informe um peso válido (mínimo 1 kg).</span>
+              </div>
+
+              <!-- Frequência de geração -->
+              <div class="form-group" id="group-frequencia">
+                <label for="frequencia" class="form-label">
+                  Frequência de Geração
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+                <select class="form-select" id="frequencia" name="frequencia" required aria-required="true" aria-describedby="frequencia-error">
+                  <option value="">Selecione a frequência</option>
+                  <option value="diaria">Diária</option>
+                  <option value="semanal">Semanal</option>
+                  <option value="quinzenal">Quinzenal</option>
+                  <option value="mensal">Mensal</option>
+                  <option value="pontual">Pontual (lote único)</option>
+                </select>
+                <span class="form-error" id="frequencia-error" role="alert">Selecione a frequência de geração.</span>
+              </div>
+
+              <div class="form-group" id="group-estado">
+                <label for="select-estado" class="form-label">
+                  Estado
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+                <select class="form-select" id="select-estado" name="estado" required aria-required="true" aria-describedby="estado-hint estado-error">
+                  <option value="">Carregando estados...</option>
+                </select>
+                
+                <span class="form-error" id="estado-error" role="alert">Selecione o estado.</span>
+              </div>
+
+              <div class="form-group" id="group-municipio">
+                <label for="select-municipio" class="form-label">
+                  Município
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+                <select class="form-select" id="select-municipio" name="municipio" required aria-required="true" aria-describedby="municipio-error" disabled>
+                  <option value="">Selecione o estado primeiro</option>
+                </select>
+                <span class="form-error" id="municipio-error" role="alert">Selecione o município.</span>
+              </div>
+
+              <!-- Endereço / Ponto de coleta -->
+              <div class="form-group" id="group-endereco">
+                <label for="endereco" class="form-label">
+                  Endereço / Ponto de Coleta
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="endereco"
+                  name="endereco"
+                  placeholder="Ex: Av. Nazaré, 1000 — Nazaré"
+                  required
+                  aria-required="true"
+                  aria-describedby="endereco-error"
+                />
+                <span class="form-error" id="endereco-error" role="alert">Informe o endereço do ponto de coleta.</span>
+              </div>
+
+              <!-- Condição de armazenamento -->
+              <div class="form-group">
+                <label for="condicao" class="form-label">Condição de Armazenamento</label>
+                <select class="form-select" id="condicao" name="condicao">
+                  <option value="">Selecione (opcional)</option>
+                  <option value="granel">A granel</option>
+                  <option value="bags">Big bags</option>
+                  <option value="bombonas">Bombonas / tambores</option>
+                  <option value="containers">Containers</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+
+              <!-- Disponibilidade para retirada -->
+              <div class="form-group" id="group-disponibilidade">
+                <label for="disponibilidade" class="form-label">
+                  Disponível para Retirada a Partir de
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="date"
+                  class="form-input"
+                  id="disponibilidade"
+                  name="disponibilidade"
+                  required
+                  aria-required="true"
+                  aria-describedby="disponibilidade-error"
+                />
+                <span class="form-error" id="disponibilidade-error" role="alert">Informe a data de disponibilidade.</span>
+              </div>
+
+              <!-- Observações (campo completo) -->
+              <div class="form-group form-group--full">
+                <label for="observacoes" class="form-label">Observações</label>
+                <textarea
+                  class="form-textarea"
+                  id="observacoes"
+                  name="observacoes"
+                  placeholder="Descreva características adicionais do resíduo, restrições de acesso ao local ou informações relevantes para o comprador..."
+                  aria-describedby="observacoes-hint"
+                ></textarea>
+                <span class="form-hint" id="observacoes-hint">Máximo 500 caracteres. Campo opcional.</span>
+              </div>
+
+            </div>
+
+            <!-- Preview de EcoCredit estimado -->
+            <div class="divider"></div>
+            <section aria-labelledby="ecocredit-preview-heading">
+              <h3 id="ecocredit-preview-heading" class="card-title mb-4">EcoCredit Estimado</h3>
+              <article class="card-kpi card-kpi--cyan preview-ecocredit-card">
+                <p class="kpi-label">EcoCredit Gerado</p>
+                <p class="kpi-value kpi-value--cyan" id="preview-ecocredit">
+                  — <span class="kpi-unit">tCO2e</span>
+                </p>
+                <p class="text-xs text-muted">Calculado ao preencher tipo e peso</p>
+              </article>
+            </section>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn--primary btn--lg" id="btn-submit">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Cadastrar Lote
+              </button>
+              <button type="reset" class="btn btn--ghost btn--lg">
+                Limpar Formulário
+              </button>
+              <a href="index.html" class="btn btn--ghost btn--lg">
+                Cancelar
+              </a>
+            </div>
+
+            <!-- Mensagem de sucesso (ativada via JS) -->
+            <div class="alert alert--success hidden mt-4" id="form-success" role="status" aria-live="polite">
+              <svg class="icon alert-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <div>
+                <strong class="alert-title">Lote cadastrado com sucesso!</strong>
+                Seu lote foi registrado e já está disponível para compradores certificados. Você pode acompanhar as propostas no <a href="index.html">Dashboard do Gerador</a>.
+              </div>
+            </div>
+
+          </form>
+        </section>
+
+      </main>
+    </div>
+
+  </div>
+
+</body>
+</html>

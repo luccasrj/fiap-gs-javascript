@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EcoOrbit — Marketplace de Resíduos com Inteligência Orbital. Dashboard do Gerador." />
+  <title>EcoOrbit — Dashboard do Gerador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Faixa de emergência orbital (ativada via JS) -->
+  <div class="emergency-banner" id="emergency-banner" role="alert" aria-live="assertive">
+    <span id="emergency-message">ALERTA ORBITAL: Novo foco de metano detectado na região de Belém-PA. Nível: CRITICO.</span>
+  </div>
+
+  <div class="app-layout">
+
+    <!-- ── NAVEGAÇÃO LATERAL ───────────────────────────── -->
+    <nav class="nav-sidebar" aria-label="Navegação principal">
+      <div class="nav-logo">
+        <span class="nav-logo-text">EcoOrbit</span>
+      </div>
+
+      <ul class="nav-menu" role="list">
+        <li>
+          <p class="nav-section-label">Principal</p>
+        </li>
+        <li>
+          <a href="index.html" class="nav-item active" aria-current="page">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="cadastro-lote.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span>Novo Lote</span>
+          </a>
+        </li>
+        <li>
+          <p class="nav-section-label">Mercado</p>
+        </li>
+        <li>
+          <a href="comprador.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </span>
+            <span>Compradores</span>
+          </a>
+        </li>
+        <li>
+          <p class="nav-section-label">Monitoramento</p>
+        </li>
+        <li>
+          <a href="orbital.html" class="nav-item">
+            <span class="nav-item-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+            </span>
+            <span>Painel Orbital</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-footer">
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </span>
+          <span>Frigorifico Norte SA</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ── CONTEÚDO PRINCIPAL ──────────────────────────── -->
+    <div class="main-content">
+
+      <!-- Header da página -->
+      <header class="page-header">
+        <div class="page-header-left">
+          <div>
+            <h1 class="page-title">Dashboard do Gerador</h1>
+            <p class="page-subtitle">Frigorifico Norte SA · Belém, PA</p>
+          </div>
+        </div>
+        <div class="page-header-right">
+          <span class="badge badge--verified">Selo Orbital Verificado</span>
+          <button class="btn btn--ghost btn--sm" id="btn-emergency" aria-label="Simular alerta de emergência orbital">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Alerta Orbital
+          </button>
+        </div>
+      </header>
+
+      <!-- Corpo da página -->
+      <main class="page-body" id="main-content">
+
+        <!-- KPIs -->
+        <section aria-labelledby="kpi-heading">
+          <h2 id="kpi-heading" class="sr-only">Indicadores de desempenho</h2>
+          <div class="kpi-grid">
+
+            <article class="card-kpi card-kpi--cyan">
+              <p class="kpi-label">EcoCredits Gerados</p>
+              <p class="kpi-value kpi-value--cyan">
+                4.28
+                <span class="kpi-unit">tCO2e</span>
+              </p>
+              <p class="kpi-delta kpi-delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+                +12% em relação ao mês anterior
+              </p>
+            </article>
+
+            <article class="card-kpi card-kpi--green">
+              <p class="kpi-label">Receita com Lotes</p>
+              <p class="kpi-value kpi-value--green">
+                R$ 3.470
+                <span class="kpi-unit">/mês</span>
+              </p>
+              <p class="kpi-delta kpi-delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+                +8% em relação ao mês anterior
+              </p>
+            </article>
+
+            <article class="card-kpi card-kpi--cyan">
+              <p class="kpi-label">Toneladas Desviadas</p>
+              <p class="kpi-value">
+                3.47
+                <span class="kpi-unit">t</span>
+              </p>
+              <p class="kpi-delta kpi-delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+                +5% em relação ao mês anterior
+              </p>
+            </article>
+
+            <article class="card-kpi card-kpi--warn">
+              <p class="kpi-label">Propostas Recebidas</p>
+              <p class="kpi-value">
+                7
+                <span class="kpi-unit">este mês</span>
+              </p>
+              <p class="kpi-delta kpi-delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+                3 aguardando resposta
+              </p>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Alerta de status regional -->
+        <section aria-labelledby="alerta-heading" class="mb-6">
+          <h2 id="alerta-heading" class="sr-only">Alertas regionais</h2>
+          <div class="alert alert--warning" role="alert">
+            <svg class="icon alert-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <strong class="alert-title">Monitoramento orbital ativo — Belém-PA</strong>
+              Índice NDVI da região em 0.18 (baixo). Score de risco de lixão: 87/100. Ação preventiva recomendada.
+            </div>
+          </div>
+        </section>
+
+        <div class="grid-2 mb-8">
+
+          <!-- Tabela de lotes -->
+          <section aria-labelledby="lotes-heading">
+            <div class="card">
+              <div class="card-header">
+                <h2 id="lotes-heading" class="card-title">Meus Lotes</h2>
+                <a href="cadastro-lote.html" class="btn btn--secondary btn--sm">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                  Novo Lote
+                </a>
+              </div>
+
+              <div class="table-toolbar">
+                <input
+                  type="search"
+                  class="search-input"
+                  id="busca-lotes"
+                  placeholder="Buscar por ID ou tipo..."
+                  aria-label="Buscar lotes"
+                  aria-controls="tabela-lotes"
+                />
+              </div>
+
+              <div class="table-wrapper" role="region" aria-label="Tabela de lotes">
+                <table class="data-table" id="tabela-lotes">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Tipo</th>
+                      <th scope="col">Peso (kg)</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">EcoCredit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>L001</td>
+                      <td>Orgânico</td>
+                      <td>2.000</td>
+                      <td><span class="badge badge--processed">Processado</span></td>
+                      <td class="td-ecocredit">0.2080 tCO2e</td>
+                    </tr>
+                    <tr>
+                      <td>L002</td>
+                      <td>Orgânico</td>
+                      <td>350</td>
+                      <td><span class="badge badge--pending">Em Análise</span></td>
+                      <td class="td-ecocredit">0.0364 tCO2e</td>
+                    </tr>
+                    <tr>
+                      <td>L004</td>
+                      <td>Orgânico</td>
+                      <td>120</td>
+                      <td><span class="badge badge--review">Em Revisão</span></td>
+                      <td class="td-ecocredit">0.0125 tCO2e</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Feed de propostas recebidas -->
+          <section aria-labelledby="propostas-heading">
+            <div class="card">
+              <div class="card-header">
+                <h2 id="propostas-heading" class="card-title">Propostas Recebidas</h2>
+                <span class="badge badge--alert">3 Novas</span>
+              </div>
+
+              <div class="proposal-feed" role="list">
+
+                <article class="proposal-item" role="listitem">
+                  <div class="proposal-info">
+                    <p class="proposal-company">BioAmazônia Ltda.</p>
+                    <p class="proposal-detail">Lote L001 · 2.000 kg orgânico</p>
+                    <span class="badge badge--verified">Comprador Verificado</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-2">
+                    <p class="proposal-value">R$ 1.200</p>
+                    <p class="proposal-timer" aria-label="Tempo restante para resposta" id="timer-1">Expira em 02:34:10</p>
+                    <button class="btn btn--primary btn--sm">Aceitar</button>
+                  </div>
+                </article>
+
+                <article class="proposal-item" role="listitem">
+                  <div class="proposal-info">
+                    <p class="proposal-company">Recicla Verde Cooperativa</p>
+                    <p class="proposal-detail">Lote L002 · 350 kg orgânico</p>
+                    <span class="badge badge--conditional">Condicional</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-2">
+                    <p class="proposal-value">R$ 210</p>
+                    <p class="proposal-timer" id="timer-2">Expira em 05:12:40</p>
+                    <button class="btn btn--secondary btn--sm">Ver Detalhes</button>
+                  </div>
+                </article>
+
+                <article class="proposal-item" role="listitem">
+                  <div class="proposal-info">
+                    <p class="proposal-company">Compost Norte SA</p>
+                    <p class="proposal-detail">Lote L004 · 120 kg orgânico</p>
+                    <span class="badge badge--review">Em Revisão</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-2">
+                    <p class="proposal-value">R$ 60</p>
+                    <p class="proposal-timer" id="timer-3">Expira em 11:58:20</p>
+                    <button class="btn btn--ghost btn--sm">Aguardar</button>
+                  </div>
+                </article>
+
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Histórico de EcoCredits -->
+        <section aria-labelledby="historico-heading" class="mb-8">
+          <div class="card">
+            <div class="card-header">
+              <h2 id="historico-heading" class="card-title">Histórico de EcoCredits — Últimos 6 Meses</h2>
+              <span class="text-sm text-muted">tCO2e evitadas</span>
+            </div>
+            <canvas id="grafico-ecocredit" height="80" aria-label="Gráfico de barras com EcoCredits gerados por mês" role="img"></canvas>
+          </div>
+        </section>
+
+        <!-- Botão para anunciar lote (toggle de formulário) -->
+        <section aria-labelledby="anunciar-heading">
+          <div class="flex items-center justify-between mb-4">
+            <h2 id="anunciar-heading" class="section-title">Anunciar Novo Lote</h2>
+            <button class="btn btn--primary" id="btn-anunciar-lote" aria-expanded="false" aria-controls="form-anunciar">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              Anunciar Lote
+            </button>
+          </div>
+
+          <div id="form-anunciar" class="hidden">
+            <div class="alert alert--info mb-4" role="status">
+              <svg class="icon alert-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div>Para cadastro completo com todos os campos, acesse a <a href="cadastro-lote.html">página de Cadastro de Lote</a>.</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+  </div>
+
+</body>
+</html>
